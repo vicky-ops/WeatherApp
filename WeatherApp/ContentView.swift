@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         ZStack{
-            LinearGradient(gradient: Gradient(colors:[Color.blue,Color.white]), 
+            LinearGradient(gradient: Gradient(colors:[.blue,Color("lightblue")]),
                            startPoint: .topLeading,
                            endPoint: .bottomTrailing)
                 .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
@@ -22,7 +22,7 @@ struct ContentView: View {
                     .padding()
 //                    .border(Color.yellow)
                 
-                VStack(spacing:8){
+                VStack(spacing:5){
                     Image(systemName: "cloud.sun.fill")
                         .renderingMode(.original)
                         .resizable()
@@ -33,6 +33,14 @@ struct ContentView: View {
                         .font(.system(size: 54,weight: .medium))
                         .foregroundColor(.white)
                     
+                }
+                Spacer()
+                HStack (spacing:15){
+                    WeatherOfTheDay(dayOfWeek: "TUE", imageName: "sun.cloud.fill", temparature:76)
+                    WeatherOfTheDay(dayOfWeek: "WED", imageName: "sun.max.fill", temparature:70)
+                    WeatherOfTheDay(dayOfWeek: "THU", imageName: "wind", temparature:60)
+                    WeatherOfTheDay(dayOfWeek: "FRI", imageName: "sun.cloud.fill", temparature:56)
+                    WeatherOfTheDay(dayOfWeek: "SAT", imageName: "sun.cloud.fill", temparature:65)
                 }
                 Spacer()
                    
@@ -46,4 +54,27 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+}
+
+struct WeatherOfTheDay: View {
+    
+    var dayOfWeek: String
+    var imageName: String
+    var temparature: Int
+    
+    var body: some View {
+        VStack{
+            Text(dayOfWeek)
+                .font(.system(size:20,weight: .medium ))
+                .foregroundColor(.white)
+            Image(systemName: imageName)
+                .renderingMode(.original)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 40,height: 40)
+            Text("\(temparature)°")
+                .font(.system(size: 28,weight: .medium))
+                .foregroundColor(.white)
+        }
+    }
 }
