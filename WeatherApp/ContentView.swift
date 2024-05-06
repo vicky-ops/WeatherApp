@@ -10,43 +10,33 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         ZStack{
-            LinearGradient(gradient: Gradient(colors:[.blue,Color("lightblue")]),
-                           startPoint: .topLeading,
-                           endPoint: .bottomTrailing)
-                .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+            BackGroundView(topColor: .blue, bottomColor:Color("lightblue") )
             VStack{
-                Text("Bengaluru, IN")
-                    .font(.system(size:32,weight:.medium,design: .default))
-                    .foregroundColor(.white)
-//                    .frame(width: 300)
-                    .padding()
-//                    .border(Color.yellow)
+               CityTextView(cityName: "Bengaluru, IN")
                 
-                VStack(spacing:5){
-                    Image(systemName: "cloud.sun.fill")
-                        .renderingMode(.original)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 180,height: 180)
-//                        .border(Color.yellow)
-                    Text("76°")
-                        .font(.system(size: 54,weight: .medium))
-                        .foregroundColor(.white)
-                    
-                }
-                Spacer()
+                MainWeatherStatusView(weatherIcon: "cloud.sun.fill", temparature: 56)
+                .padding(.bottom,50)
                 HStack (spacing:15){
-                    WeatherOfTheDay(dayOfWeek: "TUE", imageName: "sun.cloud.fill", temparature:76)
+                    WeatherOfTheDay(dayOfWeek: "TUE", imageName: "cloud.sun.fill", temparature:76)
                     WeatherOfTheDay(dayOfWeek: "WED", imageName: "sun.max.fill", temparature:70)
                     WeatherOfTheDay(dayOfWeek: "THU", imageName: "wind", temparature:60)
-                    WeatherOfTheDay(dayOfWeek: "FRI", imageName: "sun.cloud.fill", temparature:56)
-                    WeatherOfTheDay(dayOfWeek: "SAT", imageName: "sun.cloud.fill", temparature:65)
+                    WeatherOfTheDay(dayOfWeek: "FRI", imageName: "cloud.sun.fill", temparature:56)
+                    WeatherOfTheDay(dayOfWeek: "SAT", imageName: "cloud.sun.fill", temparature:65)
+                }
+                Spacer()
+                
+                Button{
+                    print("Tapped")
+                    
+                }label: {
+                    GenericButton(buttonLabel: "Change Day Time", 
+                                  buttonBackGroundColor: Color.white,
+                                  textColor: .blue
+                    )
                 }
                 Spacer()
                    
             }
-           
-            
             
         }
     }
@@ -78,3 +68,60 @@ struct WeatherOfTheDay: View {
         }
     }
 }
+
+
+struct BackGroundView:View {
+    var topColor:Color
+    var bottomColor:Color
+    
+    var body: some View {
+       
+        LinearGradient(gradient:Gradient(colors: [topColor,bottomColor]),
+                       startPoint: .topLeading,
+                       endPoint:.bottomTrailing
+        )
+        .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+    }
+}
+
+struct CityTextView:View{
+    var cityName:String
+    
+    var body: some View{
+        Text(cityName)
+            .font(.system(size: 32,weight: .medium,design: .default))
+            .foregroundColor(.white)
+            .padding()
+    }
+}
+struct  MainWeatherStatusView: View{
+    var weatherIcon: String
+    var temparature: Int
+    var body: some View{
+        VStack(spacing:5){
+            Image(systemName: weatherIcon)
+                .renderingMode(.original)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width:180,height:180)
+            Text("\(temparature)°")
+                .font(.system(size: 54,weight: .medium))
+                .foregroundColor(.white)
+        }
+    }
+}
+
+struct GenericButton:View{
+    var buttonLabel:String
+    var buttonBackGroundColor:Color
+    var textColor:Color
+    var body: some View{
+        Text(buttonLabel)
+            .frame(width: 280,height: 60)
+            .background(buttonBackGroundColor)
+            .foregroundColor(textColor)
+            .font(.system(size: 20,weight: .medium,design: .default))
+            .cornerRadius(10)
+    }
+}
+ 
