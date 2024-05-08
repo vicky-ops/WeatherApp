@@ -46,6 +46,7 @@ struct ContentView: View {
 }
 
 #Preview {
+//    ContentView()
     ContentView()
 }
 
@@ -97,6 +98,7 @@ struct CityTextView:View{
             .padding()
     }
 }
+
 struct  MainWeatherStatusView: View{
     var weatherIcon: String
     var temparature: Int
@@ -125,6 +127,7 @@ struct GenericButton:View{
             .foregroundColor(textColor)
             .font(.system(size: 20,weight: .medium,design: .default))
             .cornerRadius(10)
+        
     }
 }
  
